@@ -1,5 +1,5 @@
 CROSS_COMPILE ?= arm-linux-gnueabihf-
-TARGET        ?= beep
+TARGET        ?= key
 
 CC            := $(CROSS_COMPILE)gcc
 LD            := $(CROSS_COMPILE)ld
@@ -10,13 +10,15 @@ INCLUDIRS     := imx6ul \
 				 bsp/clk \
 				 bsp/led \
 				 bsp/delay \
-				 bsp/beep
+				 bsp/beep \
+				 bsp/key
 
 SRCDIRS       := project \
 				 bsp/clk \
 				 bsp/led \
 				 bsp/delay \
-				 bsp/beep
+				 bsp/beep \
+				 bsp/key
 
 INCLUDE   	  := $(patsubst %, -I %, $(INCLUDIRS))
 
