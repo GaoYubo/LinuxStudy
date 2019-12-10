@@ -1,0 +1,21 @@
+# 函数的使用
+# $(函数名 参数) 或者 ${函数名 参数}
+Target:
+	
+# notdir
+# notdir 函数用于取输入参数中的文件名。
+# $(notdir 文件名)
+
+# wildcard
+# wildcard 函数用于获取文件列表，并使用空格分隔开。
+# $(wildcard 匹配规则)
+
+# patsubst
+# patsubst 函数功能为模式字符串替换。
+# $(patsubst 匹配规则,替换规则,输入的字符串)
+
+.PHONY:check
+check:
+	@echo $(notdir ./src/demo1.c)
+	@echo $(wildcard src/*.c)
+	@echo $(patsubst %.c, build/%.o, hello.c)

@@ -1,0 +1,15 @@
+TARGET = hello_main
+CC = gcc
+CFLAGS = -I .
+DEPS = func.h
+OBJS = hello.o func.o
+
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+.PHONY:clean
+clean:
+	rm -f *.o hello_main

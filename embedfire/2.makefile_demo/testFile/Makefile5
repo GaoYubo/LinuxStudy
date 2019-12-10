@@ -1,0 +1,13 @@
+CC=gcc
+CFLAGS=-I .
+DEPS=func.h
+
+hello_main: hello.o func.o
+	$(CC) -o hello_main hello.o func.o
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+.PHONY:clean
+clean:
+	rm -f *.o hello_main
