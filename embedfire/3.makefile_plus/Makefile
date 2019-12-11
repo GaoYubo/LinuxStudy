@@ -14,14 +14,14 @@ INC_DIR = includes .
 
 
 #源文件
-SRCS = $(wildcard $(SRC_DIR)/%.c)
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 #目标文件(*.o)
-OBJS = $(pastubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRCS)))
+OBJS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRCS)))
 #头文件
 DEPS = $(wildcard $(INC_DIR)/*.h)
 
 #指定头文件路径
-CFLAGS = $(pastubst %, -I%, $(INC_DIR))
+CFLAGS = $(patsubst %, -I%, $(INC_DIR))
 
 #根据输入的ARCH 变量来选择编译器
 #ARCH=x86，使用gcc
@@ -37,14 +37,14 @@ $(BUILD_DIR)/$(TARGET): $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 #*.o文件的生成规则
-$(BUILD_DIR)/%.o:$(SRC_DIR)/%.c $(DEPS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 #创建一个编译目录，用于存放过程文件
 #命令前带“@”,表示不在终端上输出
 	@mkdir -p $(BUILD_DIR)
-	$(CC) -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 #伪目标
-.PHONY: clean cleanall
+.PHONY: clean cleanall print
 
 #按架构删除
 clean:
@@ -52,3 +52,9 @@ clean:
 #全部删除
 cleanall:
 	rm -rf build_x86 build_arm
+
+print:
+	@echo "SRCS = " $(SRCS)
+	@echo "DEPS = " $(DEPS)
+	@echo "OBJS = " $(OBJS)
+	@echo "CFLAGS = " $(CFLAGS)
